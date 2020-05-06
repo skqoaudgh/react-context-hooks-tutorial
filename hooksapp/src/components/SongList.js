@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import NewSongForm from './NewSongForm';
 
 const SongList = () => {
+  const [songs, setSongs] = useState([
+    { title: 'almost home', id: 1 },
+    { title: 'memory gospel', id: 2 },
+    { title: 'this wild darkness', id: 3 },
+  ]);
+
+  const addSong = (title) => {
+    setSongs([...songs, { title: title, id: uuidv4() }]);
+  };
+
   return (
     <div className="song-list">
       <ul>
-        <li>this wild darkness</li>
-        <li>memory gospel</li>
+        {songs.map((song) => (
+          <li key={song.id}>{song.title}</li>
+        ))}
       </ul>
+      <NewSongForm addSong={addSong} />
     </div>
   );
 };
